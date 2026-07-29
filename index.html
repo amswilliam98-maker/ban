@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Barnes & Noble - Complete Your Registration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1a1a1a;
+      min-height: 100vh;
+      min-height: 100dvh;
+      /* White at top, very subtle green only at bottom 10% */
+      background: linear-gradient(to bottom, #ffffff 70%, #e8f5e9 90%, #c8e6c9 100%);
+    }
+
+    /* ── MAIN CARD ── */
+    .page {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 32px 20px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── LOGO ── */
+    .logo-box {
+      width: 72px;
+      height: 72px;
+      background: #2e7d32;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── HEADING ── */
+    .heading {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(24px, 7vw, 30px);
+      font-weight: 700;
+      color: #1a1a1a;
+      text-align: center;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    /* ── SUBHEADING ── */
+    .subheading {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(13px, 3.8vw, 15px);
+      font-weight: 400;
+      color: #555;
+      text-align: center;
+      line-height: 1.55;
+      margin-bottom: 24px;
+      max-width: 300px;
+    }
+
+    .subheading strong {
+      color: #2e7d32;
+      font-weight: 600;
+    }
+
+    /* ── STEPS ── */
+    .steps-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .step-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 14px 16px;
+      background: #fff;
+    }
+
+    .step-num {
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
+      border-radius: 50%;
+      background: #2e7d32;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(13px, 3.8vw, 15px);
+      font-weight: 500;
+      color: #1a1a1a;
+      line-height: 1.35;
+    }
+
+    .step-title strong {
+      font-weight: 700;
+    }
+
+    .step-title .green {
+      color: #2e7d32;
+      font-weight: 500;
+    }
+
+    /* ── CTA ── */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      background: #2e7d32;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 8px;
+      padding: 17px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(13px, 3.8vw, 15px);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background 0.18s ease, transform 0.12s ease;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      margin-bottom: 12px;
+    }
+
+    .cta-btn:hover { background: #1b5e20; transform: translateY(-1px); }
+    .cta-btn:active { transform: translateY(0); }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(10px, 2.8vw, 11px);
+      color: #2e7d32;
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 32px;
+      opacity: 0.85;
+    }
+
+    /* ── FAQ ── */
+    .faq-section {
+      width: 100%;
+    }
+
+    .faq-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(20px, 5.5vw, 24px);
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+    }
+
+    .faq-item {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 15px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .faq-question-text {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(13px, 3.6vw, 14px);
+      font-weight: 500;
+      color: #1a1a1a;
+      line-height: 1.35;
+    }
+
+    .faq-question-text .green { color: #2e7d32; }
+
+    .faq-chevron {
+      font-size: 16px;
+      color: #555;
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+    }
+
+    .faq-answer-inner {
+      padding: 0 16px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(12px, 3.4vw, 13px);
+      font-weight: 400;
+      color: #666;
+      line-height: 1.55;
+    }
+
+    /* ── PROMO NOTE ── */
+    .promo-note {
+      margin-top: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(10px, 2.8vw, 11px);
+      color: #2e7d32;
+      text-align: center;
+      line-height: 1.55;
+      opacity: 0.85;
+      padding: 12px 16px;
+      border: 1px solid #c8e6c9;
+      border-radius: 8px;
+      background: #f1f8f1;
+    }
+
+    /* Very small screens */
+    @media (max-width: 360px) {
+      .page { padding: 24px 14px 32px; }
+      .logo-box { width: 62px; height: 62px; border-radius: 14px; }
+      .logo-text { font-size: 19px; }
+    }
+
+    /* Landscape */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .page { padding: 18px 20px 28px; }
+      .logo-box { width: 56px; height: 56px; margin-bottom: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Logo -->
+    <div class="logo-box">
+      <span class="logo-text">B&amp;N</span>
+    </div>
+
+    <!-- Heading -->
+    <h1 class="heading">Complete Your<br>Registration</h1>
+
+    <!-- Subheading -->
+    <p class="subheading">
+      Follow these simple steps to claim your <strong>$750 Barnes &amp; Noble gift card</strong>
+    </p>
+
+    <!-- Steps -->
+    <div class="steps-list">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div class="step-title">Click on <strong>"Claim Now"</strong></div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div class="step-title">Enter your email and basic info</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div class="step-title">Complete 3-5 partner deals</div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">4</div>
+        <div class="step-title">Enjoy your <strong>$750 Barnes &amp; Noble gift card!</strong></div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <a class="cta-btn" href="https://giftclick.org/aff_c?offer_id=4348&aff_id=3471">Claim Now</a>
+
+    <!-- Disclaimer -->
+    <p class="disclaimer">By clicking "Claim Now", you agree to complete the required<br>steps to receive your gift card.</p>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">How long do the deals take?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Most partner deals take just a few minutes each to complete. The entire process typically takes 15–30 minutes depending on the offers you choose.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">What are deals?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Deals are simple offers from our partners — such as signing up for a free trial, completing a survey, or registering for a service. They're quick and easy to finish.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">How many deals do <span class="green">I</span> have to do?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">You need to complete between 3 and 5 partner deals to qualify for your full $750 Barnes &amp; Noble gift card reward.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">When will <span class="green">I</span> receive my reward?</span>
+          <span class="faq-chevron">&#8964;</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Once your deals are verified, your reward is typically delivered within 5–7 business days via email.</div>
+        </div>
+      </div>
+
+      <!-- Promo note -->
+      <div class="promo-note">
+        This is a promotional offer. Reward fulfillment subject to deal completion and verification.
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      // Toggle clicked
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+</body>
+</html>
