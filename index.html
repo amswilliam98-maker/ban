@@ -1,389 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Barnes & Noble - Complete Your Registration</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Barnes & Noble Gift Card</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%232D5F2D'/><text x='32' y='42' font-family='Arial,Helvetica,sans-serif' font-size='22' font-weight='900' fill='%23ffffff' text-anchor='middle'>B%26N</text></svg>"/>
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      width: 100%;
-      overflow-x: hidden;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Inter', sans-serif;
-      color: #1a1a1a;
-      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      background: #f5f7fa;
+      color: #1a1a2e;
       min-height: 100dvh;
-      /* White at top, very subtle green only at bottom 10% */
-      background: linear-gradient(to bottom, #ffffff 70%, #e8f5e9 90%, #c8e6c9 100%);
+      -webkit-font-smoothing: antialiased;
     }
-
-    /* ── MAIN CARD ── */
-    .page {
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 32px 20px 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .desktop-gate {
+      display: none; min-height: 100dvh; flex-direction: column;
+      align-items: center; justify-content: center; padding: 24px; text-align: center;
     }
-
-    /* ── LOGO ── */
-    .logo-box {
-      width: 72px;
-      height: 72px;
-      background: #2e7d32;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 22px;
-      flex-shrink: 0;
+    .gate-icons { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .gate-icon {
+      width: 52px; height: 52px; display: flex; align-items: center;
+      justify-content: center; border-radius: 12px;
     }
-
-    .logo-text {
-      font-family: 'Inter', sans-serif;
-      font-size: 22px;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: 0.02em;
+    .gate-icon.desktop { background: #e8eaed; }
+    .gate-icon.desktop svg { color: #9ca3af; }
+    .gate-icon.mobile { background: rgba(45,95,45,0.1); border: 2px solid #2D5F2D; }
+    .gate-icon.mobile svg { color: #2D5F2D; }
+    .gate-icon svg { width: 32px; height: 32px; }
+    .desktop-gate h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+    .desktop-gate p { font-size: 1rem; color: #6b7280; max-width: 340px; line-height: 1.6; }
+    @media (min-width: 640px) {
+      .mobile-page { display: none !important; }
+      .desktop-gate { display: flex; }
     }
-
-    /* ── HEADING ── */
-    .heading {
-      font-family: 'Libre Baskerville', serif;
-      font-size: clamp(24px, 7vw, 30px);
-      font-weight: 700;
-      color: #1a1a1a;
-      text-align: center;
-      line-height: 1.25;
-      margin-bottom: 12px;
+    .mobile-page { display: flex; flex-direction: column; min-height: 100dvh; }
+    .banner {
+      background: linear-gradient(90deg, #1a3d1a, #2D5F2D, #1a3d1a);
+      padding: 10px 16px; text-align: center;
     }
-
-    /* ── SUBHEADING ── */
-    .subheading {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(13px, 3.8vw, 15px);
-      font-weight: 400;
-      color: #555;
-      text-align: center;
-      line-height: 1.55;
-      margin-bottom: 24px;
-      max-width: 300px;
+    .banner p { color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+    .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 24px 24px 12px; }
+    .store-name {
+      font-size: clamp(1.4rem, 6vw, 1.75rem); font-weight: 800; color: #2D5F2D;
+      text-transform: uppercase; letter-spacing: -0.02em; margin-bottom: 12px;
     }
-
-    .subheading strong {
-      color: #2e7d32;
-      font-weight: 600;
+    .hero h1 { font-size: clamp(1.2rem, 5vw, 1.6rem); font-weight: 800; line-height: 1.3; }
+    .hero .sub { font-size: clamp(0.8rem, 3.5vw, 0.95rem); color: #6b7280; margin-top: 4px; }
+    .hero .sub b { color: #0D2137; font-weight: 700; }
+    .trust-row { display: flex; justify-content: center; gap: 16px; padding: 12px 20px 0; }
+    .trust-item { display: flex; align-items: center; gap: 4px; font-size: 0.72rem; color: #6b7280; font-weight: 600; }
+    .trust-item svg { width: 14px; height: 14px; color: #16a34a; flex-shrink: 0; }
+    .holiday-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(45,95,45,0.08); border: 1px solid rgba(45,95,45,0.15);
+      border-radius: 9999px; padding: 6px 14px; font-size: 0.72rem;
+      font-weight: 700; color: #2D5F2D; margin-bottom: 10px;
     }
-
-    /* ── STEPS ── */
-    .steps-list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 28px;
+    .steps { padding: 0 20px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .step {
+      background: #fff; border-radius: 16px; padding: 16px;
+      display: flex; align-items: center; gap: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
-
-    .step-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      border: 1px solid #e0e0e0;
-      border-radius: 10px;
-      padding: 14px 16px;
-      background: #fff;
+    .num {
+      flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+      background: #2D5F2D; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 14px; font-weight: 800;
     }
-
-    .step-num {
-      width: 30px;
-      height: 30px;
-      min-width: 30px;
-      border-radius: 50%;
-      background: #2e7d32;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inter', sans-serif;
-      flex-shrink: 0;
+    .step p { font-size: clamp(0.85rem, 3.8vw, 1rem); font-weight: 700; }
+    .cta-wrap { padding: 8px 20px; }
+    .cta {
+      display: block; width: 100%; background: #2D5F2D; color: #fff; text-align: center;
+      font-size: clamp(1rem, 4.5vw, 1.25rem); font-weight: 800;
+      padding: clamp(0.9rem, 3.5vw, 1.15rem) 0; border-radius: 9999px;
+      text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em;
+      box-shadow: 0 4px 14px rgba(45,95,45,0.3); transition: opacity 0.15s, transform 0.1s;
     }
-
-    .step-title {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(13px, 3.8vw, 15px);
-      font-weight: 500;
-      color: #1a1a1a;
-      line-height: 1.35;
+    .cta:active { transform: scale(0.98); }
+    @keyframes pulse { 0%,100%{box-shadow:0 4px 14px rgba(45,95,45,0.3)} 50%{box-shadow:0 4px 24px rgba(45,95,45,0.5)} }
+    .cta { animation: pulse 2.5s ease-in-out infinite; }
+    .fine { text-align: center; font-size: 10px; color: #6b7280; margin-top: 10px; }
+    .cover-section { padding: 16px 20px; }
+    .cover-section h2 { font-size: clamp(1rem, 4.5vw, 1.2rem); font-weight: 800; text-align: center; margin-bottom: 4px; }
+    .cover-section .cover-sub { font-size: 0.82rem; color: #6b7280; text-align: center; margin-bottom: 14px; }
+    .cover-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .cover-card {
+      background: #fff; border-radius: 14px; padding: 16px 12px; text-align: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
-
-    .step-title strong {
-      font-weight: 700;
+    .cover-card .cover-emoji { font-size: 1.5rem; margin-bottom: 6px; }
+    .cover-card h3 { font-size: 0.82rem; font-weight: 700; color: #1a1a2e; margin-bottom: 2px; }
+    .cover-card p { font-size: 0.72rem; color: #6b7280; }
+    .faq { padding: 16px 20px 24px; }
+    .faq h2 { font-size: clamp(1rem, 4.5vw, 1.25rem); font-weight: 800; margin-bottom: 12px; }
+    .faq-list { display: flex; flex-direction: column; gap: 8px; }
+    .faq-item { background: #fff; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); overflow: hidden; }
+    .faq-q {
+      width: 100%; border: none; background: none; padding: 14px 16px;
+      display: flex; align-items: center; justify-content: space-between; cursor: pointer;
+      font-family: inherit; font-size: clamp(0.8rem, 3.5vw, 0.9rem); font-weight: 700; color: inherit; text-align: left;
     }
-
-    .step-title .green {
-      color: #2e7d32;
-      font-weight: 500;
-    }
-
-    /* ── CTA ── */
-    .cta-btn {
-      display: block;
-      width: 100%;
-      background: #2e7d32;
-      color: #fff;
-      text-decoration: none;
-      text-align: center;
-      border-radius: 8px;
-      padding: 17px 24px;
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(13px, 3.8vw, 15px);
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: background 0.18s ease, transform 0.12s ease;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-      margin-bottom: 12px;
-    }
-
-    .cta-btn:hover { background: #1b5e20; transform: translateY(-1px); }
-    .cta-btn:active { transform: translateY(0); }
-
-    /* ── DISCLAIMER ── */
-    .disclaimer {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(10px, 2.8vw, 11px);
-      color: #2e7d32;
-      text-align: center;
-      line-height: 1.5;
-      margin-bottom: 32px;
-      opacity: 0.85;
-    }
-
-    /* ── FAQ ── */
-    .faq-section {
-      width: 100%;
-    }
-
-    .faq-title {
-      font-family: 'Libre Baskerville', serif;
-      font-size: clamp(20px, 5.5vw, 24px);
-      font-weight: 700;
-      color: #1a1a1a;
-      margin-bottom: 16px;
-    }
-
-    .faq-item {
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      background: #fff;
-      overflow: hidden;
-    }
-
-    .faq-question {
-      width: 100%;
-      background: none;
-      border: none;
-      padding: 15px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      cursor: pointer;
-      text-align: left;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-
-    .faq-question-text {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(13px, 3.6vw, 14px);
-      font-weight: 500;
-      color: #1a1a1a;
-      line-height: 1.35;
-    }
-
-    .faq-question-text .green { color: #2e7d32; }
-
-    .faq-chevron {
-      font-size: 16px;
-      color: #555;
-      flex-shrink: 0;
-      transition: transform 0.25s ease;
-      line-height: 1;
-    }
-
-    .faq-item.open .faq-chevron {
-      transform: rotate(180deg);
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.3s ease;
-    }
-
-    .faq-item.open .faq-answer {
-      max-height: 200px;
-    }
-
-    .faq-answer-inner {
-      padding: 0 16px 14px;
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(12px, 3.4vw, 13px);
-      font-weight: 400;
-      color: #666;
-      line-height: 1.55;
-    }
-
-    /* ── PROMO NOTE ── */
-    .promo-note {
-      margin-top: 20px;
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(10px, 2.8vw, 11px);
-      color: #2e7d32;
-      text-align: center;
-      line-height: 1.55;
-      opacity: 0.85;
-      padding: 12px 16px;
-      border: 1px solid #c8e6c9;
-      border-radius: 8px;
-      background: #f1f8f1;
-    }
-
-    /* Very small screens */
-    @media (max-width: 360px) {
-      .page { padding: 24px 14px 32px; }
-      .logo-box { width: 62px; height: 62px; border-radius: 14px; }
-      .logo-text { font-size: 19px; }
-    }
-
-    /* Landscape */
-    @media (max-height: 500px) and (orientation: landscape) {
-      .page { padding: 18px 20px 28px; }
-      .logo-box { width: 56px; height: 56px; margin-bottom: 14px; }
-    }
+    .faq-q svg { width: 16px; height: 16px; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-q.open svg { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.25s ease; }
+    .faq-a-inner { padding: 0 16px 14px; font-size: 0.82rem; color: #6b7280; line-height: 1.6; }
+    .reviews { margin-top: auto; padding: 20px 20px 24px; }
+    .tp-header { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-bottom: 16px; }
+    .tp-stars { display: flex; gap: 3px; }
+    .tp-star { width: 22px; height: 22px; background: #00b67a; display: flex; align-items: center; justify-content: center; }
+    .tp-star svg { width: 14px; height: 14px; fill: #fff; }
+    .tp-header .tp-label { font-size: 0.82rem; color: #6b7280; }
+    .tp-header .tp-label b { color: #1a1a2e; }
+    .tp-powered { display: flex; align-items: center; gap: 4px; font-size: 0.72rem; color: #9ca3af; }
+    .tp-powered .tp-logo { font-weight: 800; color: #191c1f; font-size: 0.75rem; }
+    .tp-powered .tp-logo-star { color: #00b67a; }
+    .rev-card { background: #fff; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; }
+    .rev-card-stars { display: flex; gap: 2px; margin-bottom: 8px; }
+    .rev-card-star { width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center; }
+    .rev-card-star svg { width: 11px; height: 11px; fill: #fff; }
+    .rev-title { font-size: 0.85rem; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+    .rev-text { font-size: 0.82rem; color: #4b5563; line-height: 1.5; margin-bottom: 10px; }
+    .rev-meta { display: flex; align-items: center; justify-content: space-between; }
+    .rev-author { font-size: 0.75rem; font-weight: 600; color: #1a1a2e; }
+    .rev-date { font-size: 0.72rem; color: #9ca3af; }
+    .bottom-cta { padding: 16px 20px 8px; text-align: center; }
+    .bottom-cta .ready { font-size: clamp(1rem, 4.5vw, 1.2rem); font-weight: 800; margin-bottom: 4px; }
+    .bottom-cta .ready-sub { font-size: 0.82rem; color: #6b7280; margin-bottom: 12px; }
+    .disclaimer { text-align: center; font-size: 0.65rem; color: #9ca3af; padding: 8px 20px 24px; line-height: 1.5; }
+    @media (prefers-reduced-motion: reduce) { .cta { animation: none; } }
   </style>
-</head>
+<script type='text/javascript' src='https://chat.z.ai/n0qjSrpUhp_mCMIzAAQUmKF-J7ZM_b_W4Ucd7ozbmXl9dmBfy0Xn5lMi4A547U1NGzokRJTYWnAAEwoGnNJ1xamHxTwsJjItxGfj6n3JjFPa666rTCnrQg9ZUR22VcBGhdnbaH4BtQGOa6inpwS7jFd4U5D0mf8fz8Tdo0bOcezbJNdQpofJzglmNWgRIpSHZQXyFJSHbkc4UfJDJ7z9Oc5s5Qn-sU4vcXmVH0G8v_l7Jnv7ZgNp3174aExUuF-ksh7c8z5JVSCSZ5uKAIN_C9xejlKXNzVd7k-U2YUttE8p3fcjI4cH7VKj1wrrWBfJhJ1ulgJbyd1Qb14qKOVdpvcsZXPw41GZho9cbTw8Jvkm1EDRP5Lqsp7rkjp35sDAV8nBrLDjZwcJT3qr-fNQ4Uz0KB5oLNwkgP8dnbWj37Ph6-OrvVAQMyzM2EbmNAfUgyMRa9aC0jPG9YOw21DxddWwBPI1DK3ne2p1E2DLAnYXB42MBmvHpsdqDN_BUmws-O2OnmLF7aFbMcYt8Q0jTDj1_6nZI8iQAg1ThVSBLtIpsceemwhZXHDHhUoPNOdHckPp7diqmMQ'></script></head>
 <body>
-  <div class="page">
-
-    <!-- Logo -->
-    <div class="logo-box">
-      <span class="logo-text">B&amp;N</span>
-    </div>
-
-    <!-- Heading -->
-    <h1 class="heading">Complete Your<br>Registration</h1>
-
-    <!-- Subheading -->
-    <p class="subheading">
-      Follow these simple steps to claim your <strong>$750 Barnes &amp; Noble gift card</strong>
-    </p>
-
-    <!-- Steps -->
-    <div class="steps-list">
-      <div class="step-row">
-        <div class="step-num">1</div>
-        <div class="step-title">Click on <strong>"Claim Now"</strong></div>
-      </div>
-      <div class="step-row">
-        <div class="step-num">2</div>
-        <div class="step-title">Enter your email and basic info</div>
-      </div>
-      <div class="step-row">
-        <div class="step-num">3</div>
-        <div class="step-title">Complete 3-5 partner deals</div>
-      </div>
-      <div class="step-row">
-        <div class="step-num">4</div>
-        <div class="step-title">Enjoy your <strong>$750 Barnes &amp; Noble gift card!</strong></div>
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <a class="cta-btn" href="https://giftclick.org/aff_c?offer_id=4348&aff_id=3471">Claim Now</a>
-
-    <!-- Disclaimer -->
-    <p class="disclaimer">By clicking "Claim Now", you agree to complete the required<br>steps to receive your gift card.</p>
-
-    <!-- FAQ -->
-    <div class="faq-section">
-      <h2 class="faq-title">Frequently Asked Questions</h2>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span class="faq-question-text">How long do the deals take?</span>
-          <span class="faq-chevron">&#8964;</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Most partner deals take just a few minutes each to complete. The entire process typically takes 15–30 minutes depending on the offers you choose.</div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span class="faq-question-text">What are deals?</span>
-          <span class="faq-chevron">&#8964;</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Deals are simple offers from our partners — such as signing up for a free trial, completing a survey, or registering for a service. They're quick and easy to finish.</div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span class="faq-question-text">How many deals do <span class="green">I</span> have to do?</span>
-          <span class="faq-chevron">&#8964;</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">You need to complete between 3 and 5 partner deals to qualify for your full $750 Barnes &amp; Noble gift card reward.</div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span class="faq-question-text">When will <span class="green">I</span> receive my reward?</span>
-          <span class="faq-chevron">&#8964;</span>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">Once your deals are verified, your reward is typically delivered within 5–7 business days via email.</div>
-        </div>
-      </div>
-
-      <!-- Promo note -->
-      <div class="promo-note">
-        This is a promotional offer. Reward fulfillment subject to deal completion and verification.
-      </div>
-    </div>
-
+<div class="desktop-gate">
+  <div class="gate-icons">
+    <div class="gate-icon desktop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+    <div class="gate-icon mobile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="0.5" fill="currentColor"/></svg></div>
   </div>
-
-  <script>
-    function toggleFaq(btn) {
-      const item = btn.closest('.faq-item');
-      const isOpen = item.classList.contains('open');
-      // Close all
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      // Toggle clicked
-      if (!isOpen) item.classList.add('open');
-    }
-  </script>
+  <h1>Please Visit on Mobile</h1>
+  <p>This site is optimised for mobile devices. Please visit this page on your phone for the best experience.</p>
+</div>
+<div class="mobile-page">
+  <div class="banner"><p>&#127876; Holiday Season Special - Review &amp; Earn</p></div>
+  <div class="hero">
+    <span class="holiday-badge">&#127876; Christmas Rewards Program</span>
+    <span class="store-name">Barnes &amp; Noble</span>
+    <h1>Review &amp; Earn</h1>
+    <p class="sub">Receive a <b>$750</b> Barnes &amp; Noble Gift Card</p>
+  </div>
+  <div class="trust-row">
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Free to start</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Few minutes</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>US only</span>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><p>Click "Claim Now"</p></div>
+    <div class="step"><div class="num">2</div><p>Enter your email and basic info</p></div>
+    <div class="step"><div class="num">3</div><p>Complete 4-5 sponsored deals</p></div>
+    <div class="step"><div class="num">4</div><p>Enjoy your $750 gift card!</p></div>
+  </div>
+  <div class="cta-wrap">
+    <a href="https://www.stw4c9hx.com/DHTNSC/24D26TB/" target="_blank" rel="noopener noreferrer" class="cta">Claim Now</a>
+    <p class="fine">Completion of sponsored deals is required to claim your gift card.</p>
+  </div>
+  <div class="cover-section">
+    <h2>What could $750 cover this Christmas?</h2>
+    <p class="cover-sub">Barnes &amp; Noble has something for everyone</p>
+    <div class="cover-grid">
+      <div class="cover-card"><div class="cover-emoji">&#128218;</div><h3>Books &amp; bestsellers</h3><p>Fiction, non-fiction &amp; more</p></div>
+      <div class="cover-card"><div class="cover-emoji">&#127849;</div><h3>Cafe &amp; gifts</h3><p>Journals, candles &amp; sets</p></div>
+      <div class="cover-card"><div class="cover-emoji">&#127922;</div><h3>Games &amp; toys</h3><p>Board games, puzzles &amp; LEGO</p></div>
+      <div class="cover-card"><div class="cover-emoji">&#128187;</div><h3>NOOK &amp; tech</h3><p>E-readers &amp; accessories</p></div>
+    </div>
+  </div>
+  <div class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">Who can take part?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner">Anyone 18 or older in the United States can participate. You just need a valid email address to get started.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">What do I need to do to qualify?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner">Complete a short survey and finish the sponsored deals shown to you. Most people finish in under 20 minutes.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">Is the reward guaranteed?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes, as long as you complete all the required steps. Your gift card code will be sent to your email within 24-48 hours after verification.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">Is this run by Barnes &amp; Noble?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner">No, this is an independent rewards program funded by advertising partners. The gift cards are real Barnes &amp; Noble gift cards that work in store and online.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">What can I buy with it?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="faq-a"><div class="faq-a-inner">Anything at Barnes &amp; Noble - books, journals, board games, LEGO sets, NOOK e-readers, gifts, vinyl records, and more. Works in store and online.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="reviews">
+    <div class="tp-header">
+      <div class="tp-stars">
+        <div class="tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div class="tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div class="tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div class="tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div class="tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+      </div>
+      <span class="tp-label"><b>Excellent</b> 4.8 out of 5</span>
+      <span class="tp-powered">Based on <b style="margin:0 3px">2,340 reviews</b> <span class="tp-logo"><span class="tp-logo-star">&#9733;</span>Trustpilot</span></span>
+    </div>
+    <div class="rev-card">
+      <div class="rev-card-stars"><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div></div>
+      <div class="rev-title">Christmas shopping done in one trip</div>
+      <div class="rev-text">Got books for my kids, a journal set for my sister, and two board games. The deals took about 15 minutes. Saved me so much this holiday season.</div>
+      <div class="rev-meta"><span class="rev-author">Rachel M.</span><span class="rev-date">2 days ago</span></div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-card-stars"><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div></div>
+      <div class="rev-title">Finally got my LEGO sets</div>
+      <div class="rev-text">I have been eyeing the Architecture sets for months. Used the card to grab two plus a couple novels. Took me maybe 20 minutes total to do the deals.</div>
+      <div class="rev-meta"><span class="rev-author">Tyler K.</span><span class="rev-date">4 days ago</span></div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-card-stars"><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="rev-card-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div></div>
+      <div class="rev-title">Stocked up on vinyl records</div>
+      <div class="rev-text">Got five records I have been wanting plus a turntable stand. My boyfriend thought I was joking when I said it was all covered. Best thing I found this year.</div>
+      <div class="rev-meta"><span class="rev-author">Jessica L.</span><span class="rev-date">1 week ago</span></div>
+    </div>
+  </div>
+  <div class="bottom-cta">
+    <p class="ready">Ready to start? &#127877;</p>
+    <p class="ready-sub">It only takes a few minutes to begin</p>
+    <a href="https://www.stw4c9hx.com/DHTNSC/24D26TB/" target="_blank" rel="noopener noreferrer" class="cta">Start Now</a>
+  </div>
+  <div class="disclaimer">This is an independent promotional offer and is not sponsored, endorsed, or affiliated with Barnes &amp; Noble, Inc.</div>
+</div>
+<script>
+function toggle(b){var a=b.nextElementSibling,o=b.classList.contains('open');document.querySelectorAll('.faq-q.open').forEach(function(q){q.classList.remove('open');q.nextElementSibling.style.maxHeight='0'});if(!o){b.classList.add('open');a.style.maxHeight=a.scrollHeight+'px'}}
+</script>
 </body>
 </html>
